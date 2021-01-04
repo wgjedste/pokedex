@@ -7,3 +7,11 @@ let pokemonList = [
   ]
 
   console.log(pokemonList); 
+
+  let pokemonList2 = [ 
+    {name: "Scyther", height: 1.5, types: ["bug", "flying"]},
+    {name: "Pikachu", height: 0.4, types: ["electric"]},
+    {name: "Venusaur", height: 2, types: ["grass", "poison"]}
+  ]
+
+  console.log(pokemonList2)
