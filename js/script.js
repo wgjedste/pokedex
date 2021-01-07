@@ -13,7 +13,7 @@ let pokemonList = [
 
 for(let i = 0; i < pokemonList.length; i++){
 
-  let size = "";
+  let size = " ";
   if (pokemonList[i].height > 1.5){ 
     size = "WOW THIS IS BIG"
   } else if (pokemonList[i].height < 1){
