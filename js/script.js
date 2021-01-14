@@ -1,56 +1,75 @@
-let pokemonList = [
-    { name: "Bulbasaur", height: 0.7, types: ["grass"] },
-    { name: "Charmander", height: 0.6, types: ["fire"] },
-    { name: "Golbat", height: 1.6, types: ["flying", "poison"] },
-    { name: "Alakazam", height: 1.2, types: ["psychic"] },
-    { name: "Hypno", height: 1.6, types: ["psychic"]},
-    { name: "Scyther", height: 1.5, types: ["bug", "flying"]},
-    { name: "Pikachu", height: 0.4, types: ["electric"]},
-    { name: "Venusaur", height: 2, types: ["grass", "poison"]}
-  ]
 
-  console.log(pokemonList.length); 
-
-for(let i = 0; i < pokemonList.length; i++){
-
-  let size = " ";
-  if (pokemonList[i].height > 1.5){ 
-    size = "WOW THIS IS BIG"
-  } else if (pokemonList[i].height < 1){
-    size = "this is small"    
-  } else {
-    size = "This is Medium"
-  }
-
-let color = " "
-  for(let k = 0; k < pokemonList[i].types.length; k++){
-    if(pokemonList[i].types[k] == "grass"){
-    color = '<span style="color:green;"> ';
-    } else if (pokemonList[i].types[k] == "fire"){
-      color = '<span style="color:red;"> ';
-    } else if (pokemonList[i].types[k] == "psychic"){
-      color = '<span style="color:purple;"> ';
-    } else if (pokemonList[i].types[k] == "electric"){
-      color = '<span style="color:gold;"> ';
-    } else if (pokemonList[i].types[k] == "flying"){
-      color = '<span style="color:blue;"> ';
+  let pokemonRepository = (function () {
+    let pokemonList = [
+      { name: "Bulbasaur", height: 0.7, types: ["grass"] },
+      { name: "Charmander", height: 0.6, types: ["fire"] },
+      { name: "Golbat", height: 1.6, types: ["flying", "poison"] },
+      { name: "Alakazam", height: 1.2, types: ["psychic"] },
+      { name: "Hypno", height: 1.6, types: ["psychic"]},
+      { name: "Scyther", height: 1.5, types: ["bug", "flying"]},
+      { name: "Pikachu", height: 0.4, types: ["electric"]},
+      { name: "Venusaur", height: 2, types: ["grass", "poison"]}
+    ]
+    function add(pokemon) {
+      pokemonList.push(pokemon);
     }
-  }
+  
+    function getAll() {
+      return pokemonList;
+    }
+  
+    return {
+      add: add,
+      getAll: getAll
+    };
+  })();
+  
+  console.log(pokemonRepository.getAll()); // Parent Fuction 
+  pokemonRepository.add({ name: "Evee", height: '0.5', types: ["speed"] });
 
 
-  document.write(
-    '<div class = "box">' + 
-    pokemonList[i].name + 
-    " " + 
-    "(height: " + 
-    pokemonList[i].height + 
-    ")" + 
-    "<br>" + 
-    color + 
-    pokemonList[i].types + 
-    "<br>"  +
-    size + 
-    '</div>'
-  )
-}
-
+  pokemonRepository.getAll().forEach(function(pokemon){
+    let size = " ";
+    if (pokemon.height > 1.5){ 
+      size = "WOW THIS IS BIG"
+    } else if (pokemon.height < 1){
+      size = "this is small"    
+    } else {
+      size = "This is Medium"
+    }
+  
+  let color = " "
+  pokemon.types.forEach(function(type){
+    if(type == "grass"){
+      color = '<span style="color:green;"> ';
+      } else if (type == "fire"){
+        color = '<span style="color:red;"> ';
+      } else if (type == "psychic"){
+        color = '<span style="color:purple;"> ';
+      } else if (type == "electric"){
+        color = '<span style="color:gold;"> ';
+      } else if (type == "flying"){
+        color = '<span style="color:blue;"> ';
+      }
+      else if (type == "speed"){
+        color = '<span style="color:orange;"> ';
+      }
+  })
+      
+  
+    document.write(
+      '<div class = "box">' + 
+      pokemon.name + 
+      " " + 
+      "(height: " + 
+      pokemon.height + 
+      ")" + 
+      "<br>" + 
+      color + 
+      pokemon.types + 
+      "<br>"  +
+      size + 
+      '</div>'
+    )
+  
+  })
