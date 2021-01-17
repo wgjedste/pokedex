@@ -17,10 +17,24 @@
     function getAll() {
       return pokemonList;
     }
+
+    function addListItem(pokemon){
+      let ul = document.querySelector(".pokemon-list")
+      let li = document.createElement("li")
+      let button = document.createElement("button")
+      button.classList.add("button")
+      button.innerText = pokemon.name
+      li.appendChild(button)
+      ul.appendChild(li)
+      button.addEventListener("click", function(event){
+      console.log(pokemon)
+      })
+    }
   
     return {
       add: add,
-      getAll: getAll
+      getAll: getAll, 
+      addListItem: addListItem
     };
   })();
   
@@ -55,8 +69,10 @@
         color = '<span style="color:orange;"> ';
       }
   })
-      
   
+  pokemonRepository.addListItem(pokemon)
+  
+  // OLD LIST
     document.write(
       '<div class = "box">' + 
       pokemon.name + 
