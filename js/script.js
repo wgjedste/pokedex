@@ -80,19 +80,5 @@ pokemonRepository.getAll().forEach(function (pokemon) {
 
   pokemonRepository.addListItem(pokemon);
 
-  // OLD LIST
-  // document.write(
-  //   '<div class = "box">' +
-  //   pokemon.name +
-  //   " " +
-  //   "(height: " +
-  //   pokemon.height +
-  //   ")" +
-  //   "<br>" +
-  //   color +
-  //   pokemon.types +
-  //   "<br>"  +
-  //   size +
-  //   '</div>'
-  // )
+  
 });
