@@ -1,15 +1,7 @@
 let pokemonRepository = (function () {
-  let pokemonList = [
-    { name: "Bulbasaur", height: 0.7, types: ["grass"] },
-    { name: "Charmander", height: 0.6, types: ["fire"] },
-    { name: "Golbat", height: 1.6, types: ["flying", "poison"] },
-    { name: "Alakazam", height: 1.2, types: ["psychic"] },
-    { name: "Hypno", height: 1.6, types: ["psychic"] },
-    { name: "Scyther", height: 1.5, types: ["bug", "flying"] },
-    { name: "Pikachu", height: 0.4, types: ["electric"] },
-    { name: "Venusaur", height: 2, types: ["grass", "poison"] },
-  ];
 
+let pokemonList = []
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1000';
   // ADD POKEMON
   function add(pokemon) {
     pokemonList.push(pokemon);
@@ -31,54 +23,100 @@ let pokemonRepository = (function () {
     li.appendChild(button);
     ul.appendChild(li);
     button.addEventListener("click", function (event) {
-      console.log(pokemon);
+      showDetails(pokemon)
     });
   }
 
   // SHOW DETAILS
-  function showDetails(pokemon) {
-    console.log(pokemon);
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function () {
+      console.log(item);
+    });
   }
+
+  // LOAD LIST
+ function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = [];
+      details.types.forEach(function(pokemonType){
+        item.types.push(pokemonType.type.name)
+      })
+      item.abilities = [];
+      details.abilities.forEach(function(pokemonAbility){
+        item.abilities.push(pokemonAbility.ability.name)
+      })
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
 
   return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
     showDetails: showDetails,
+    loadList: loadList,
+    loadDetails: loadDetails,
   };
 })();
 
-console.log(pokemonRepository.getAll()); // Parent Fuction
-pokemonRepository.add({ name: "Evee", height: "0.5", types: ["speed"] });
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-  let size = " ";
-  if (pokemon.height > 1.5) {
-    size = "WOW THIS IS BIG";
-  } else if (pokemon.height < 1) {
-    size = "this is small";
-  } else {
-    size = "This is Medium";
-  }
-
-  let color = " ";
-  pokemon.types.forEach(function (type) {
-    if (type == "grass") {
-      color = '<span style="color:green;"> ';
-    } else if (type == "fire") {
-      color = '<span style="color:red;"> ';
-    } else if (type == "psychic") {
-      color = '<span style="color:purple;"> ';
-    } else if (type == "electric") {
-      color = '<span style="color:gold;"> ';
-    } else if (type == "flying") {
-      color = '<span style="color:blue;"> ';
-    } else if (type == "speed") {
-      color = '<span style="color:orange;"> ';
-    }
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
   });
+});
 
-  pokemonRepository.addListItem(pokemon);
+// pokemonRepository.getAll().forEach(function (pokemon) {
+//   let size = " ";
+//   if (pokemon.height > 1.5) {
+//     size = "WOW THIS IS BIG";
+//   } else if (pokemon.height < 1) {
+//     size = "this is small";
+//   } else {
+//     size = "This is Medium";
+//   }
+
+//   let color = " ";
+//   pokemon.types.forEach(function (type) {
+//     if (type == "grass") {
+//       color = '<span style="color:green;"> ';
+//     } else if (type == "fire") {
+//       color = '<span style="color:red;"> ';
+//     } else if (type == "psychic") {
+//       color = '<span style="color:purple;"> ';
+//     } else if (type == "electric") {
+//       color = '<span style="color:gold;"> ';
+//     } else if (type == "flying") {
+//       color = '<span style="color:blue;"> ';
+//     } else if (type == "speed") {
+//       color = '<span style="color:orange;"> ';
+//     }
+//   });
+
+//   pokemonRepository.addListItem(pokemon);
 
   
-});
+// });
