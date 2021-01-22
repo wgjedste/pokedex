@@ -26,6 +26,7 @@ let pokemonList = []
       showDetails(pokemon)
     });
   }
+  
 
   // SHOW DETAILS
   function showDetails(item) {
@@ -51,6 +52,7 @@ let pokemonList = []
     })
   }
 
+// LOAD DETAILS
   function loadDetails(item) {
     let url = item.detailsUrl;
     return fetch(url).then(function (response) {
@@ -72,6 +74,7 @@ let pokemonList = []
     });
   }
 
+  
 
   return {
     add: add,
@@ -89,34 +92,3 @@ pokemonRepository.loadList().then(function () {
   });
 });
 
-// pokemonRepository.getAll().forEach(function (pokemon) {
-//   let size = " ";
-//   if (pokemon.height > 1.5) {
-//     size = "WOW THIS IS BIG";
-//   } else if (pokemon.height < 1) {
-//     size = "this is small";
-//   } else {
-//     size = "This is Medium";
-//   }
-
-//   let color = " ";
-//   pokemon.types.forEach(function (type) {
-//     if (type == "grass") {
-//       color = '<span style="color:green;"> ';
-//     } else if (type == "fire") {
-//       color = '<span style="color:red;"> ';
-//     } else if (type == "psychic") {
-//       color = '<span style="color:purple;"> ';
-//     } else if (type == "electric") {
-//       color = '<span style="color:gold;"> ';
-//     } else if (type == "flying") {
-//       color = '<span style="color:blue;"> ';
-//     } else if (type == "speed") {
-//       color = '<span style="color:orange;"> ';
-//     }
-//   });
-
-//   pokemonRepository.addListItem(pokemon);
-
-  
-// });
