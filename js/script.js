@@ -11,7 +11,7 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
-  // ADD LIST ITEM
+  // ADD LIST ITEM - Convert to JQUERY
   function addListItem(pokemon) {
     let ul = document.querySelector(".pokemon-list");
     let li = document.createElement("li");
