@@ -14,30 +14,34 @@ let pokemonRepository = (function () {
   // ADD LIST ITEM - Convert to JQUERY
   function addListItem(pokemon) {
     pokemonRepository.loadDetails(pokemon).then(function () {
-    // let ul = $('.pokemon-list')
-    // let li = $('<li></li>')
-    var $row = $(".row");
+      // let ul = $('.pokemon-list')
+      // let li = $('<li></li>')
+      var $row = $(".row");
 
-    var $card = $('<div class="card" style="width:400px"></div>');
-    var $image = $(
-      '<img class="card-img-top" alt="Card image" style="width:20%" />'
-    );
-    $image.attr("src", pokemon.imageUrl);
-    var $cardBody = $('<div class="card-body"></div>');
-    var $cardTitle = $("<h4 class='card-title' >" + pokemon.name + "</h4>");
-    let $seeProfile = $('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+pokemon.name+'</button>')
-    // li.append(button)
-    // ul.append(li)
-    $row.append($card);
+      var $card = $('<div class="card" style="width:400px"></div>');
+      var $image = $(
+        '<img class="card-img-top mx-auto" alt="Card image" style="width:20%" />'
+      );
+      $image.attr("src", pokemon.imageUrl);
+      var $cardBody = $('<div class="card-body"></div>');
+      var $cardTitle = $("<h4 class='card-title' >" + pokemon.name + "</h4>");
+      let $seeProfile = $(
+        '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">' +
+          pokemon.name +
+          "</button>"
+      );
+      // li.append(button)
+      // ul.append(li)
+      $row.append($card);
       //Append the image to each card
       $card.append($image);
       $card.append($cardBody);
       $cardBody.append($cardTitle);
       $cardBody.append($seeProfile);
       $seeProfile.on("click", function (event) {
-      showDetails(pokemon);
+        showDetails(pokemon);
+      });
     });
-  });
   }
 
   // SHOW DETAILS
@@ -51,34 +55,37 @@ let pokemonRepository = (function () {
   // SHOW MODAL
   // let modalContainer = $('#modal-container')
   function showModal(pokemon) {
-      let modalBody = $(".modal-body");
-      let modalTitle = $(".modal-title");
-      let modalHeader = $(".modal-header");
-      // Clear all existing modal content
-      modalTitle.empty();
-      modalBody.empty();
-      // modalContainer.empty();
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
+    let modalHeader = $(".modal-header");
+    // Clear all existing modal content
+    modalTitle.empty();
+    modalBody.empty();
+    // modalContainer.empty();
 
+    let pokemonName = $("<h1>" + pokemon.name + "</h1>");
 
-    let pokemonName = $('<h1>'+pokemon.name+'</h1>')
+    let pokemonImage = $('<img class = "modal-img" style = "width: 50%">');
+    pokemonImage.attr("src", pokemon.imageUrl);
+    let pokemonImageAnimated = $(
+      '<img class = "modal-img mx-auto" style = "width: 30%">'
+    );
+    pokemonImageAnimated.attr("src", pokemon.imageUrlAnimated);
 
-    let pokemonImage = $('<img class = "modal-img" style = "width: 50%">')
-    pokemonImage.attr("src", pokemon.imageUrl)
-    let pokemonImageAnimated = $('<img class = "modal-img" style = "width: 50%">')
-    pokemonImageAnimated.attr("src", pokemon.imageUrlAnimated)
+    let pokemonWeight = $("<p>" + "weight: " + pokemon.weight + "</p>");
+    let pokemonHeight = $("<p>" + "height: " + pokemon.height + "</p>");
+    let pokemonTypes = $("<p>" + "types: " + pokemon.types + "</p>");
+    let pokemonAbilities = $(
+      "<p>" + "abilities: " + pokemon.abilities + "</p>"
+    );
 
-    let pokemonWeight = $('<p>'+"weight: "+ pokemon.weight+'</p>')
-    let pokemonHeight = $('<p>'+"height: "+ pokemon.height+'</p>')
-    let pokemonTypes = $('<p>'+"types: "+ pokemon.types+'</p>')
-    let pokemonAbilities = $('<p>'+"abilities: "+ pokemon.abilities+'</p>')
+    let pokemonStat = $("<p>" + "stats: " + pokemon.stats + "</p>");
 
-    let pokemonStat = $('<p>'+"stats: "+ pokemon.stats+'</p>')
-
-    let pokemonSpecies = $('<p>'+"species: "+ pokemon.species+'</p>')
-    console.log(modalTitle)
+    let pokemonSpecies = $("<p>" + "species: " + pokemon.species + "</p>");
+    console.log(modalTitle);
 
     modalTitle.append(pokemonName);
-    modalBody.append(pokemonImage);
+    // modalBody.append(pokemonImage);
     modalBody.append(pokemonImageAnimated);
     modalBody.append(pokemonWeight);
     modalBody.append(pokemonHeight);
@@ -86,9 +93,7 @@ let pokemonRepository = (function () {
     modalBody.append(pokemonTypes);
     modalBody.append(pokemonSpecies);
     modalBody.append(pokemonAbilities);
-
   }
-
 
   // LOAD LIST
   function loadList() {

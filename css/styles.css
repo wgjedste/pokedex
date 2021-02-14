@@ -1,12 +1,18 @@
-html, 
-body {
+html, body {
   font-family: Arial, sans-serif;
 }
-.modal-img {
-  display: inline block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30%;
-  height: auto;
+
+.modal-body {
+  position: relative;
+  /* This avoids whatever it's absolute inside of it to go off the container */
+  /* let's imagine that your login box height is 250px . This height needs to be added, otherwise .img-responsive will be like "Oh no, I need to be vertically aligned?! but from which value I need to be aligned??" */
 }
 
+.modal-img {
+  /* width:50px;
+  height: 50px; */
+  position: relative;
+  left: 35%;
+  top: 25%;
+  margin-top: -25px;
+}
